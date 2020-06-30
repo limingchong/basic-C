@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <windows.h>
+
+void prints(int t)
+{
+	printf("\n");
+	while (t>=1)
+	{
+		printf(" ");
+		--t;
+	}
+	for(int i=1;i<=10;++i)
+	{
+		printf("hello ");
+		printf("~~ ");
+	}
+}
+
+void move(t,n)
+{
+	RECT rect;
+	HWND wind = GetForegroundWindow();
+	GetWindowRect(wind, &rect);
+	int n1 = ((n % 4 == 1 | n % 4 == 0) ? 1 : -1);
+	int n2 = ((n % 4 == 1 | n % 4 == 2) ? 1 : -1);
+	//printf("\n n1=%d n2=%d\n",n1,n2);
+	MoveWindow(wind, rect.left + n1 * t / 2, rect.top + n2 * t / 7, 1250 + (n1 * n2) * t, 500 + (n1 * n2) * t, TRUE);
+	Sleep(5);
+}
+
+int main()
+{
+	int T,N=1;
+s1:	for (T = 1; T < 30; ++T)
+	{
+		prints(T);
+		printf("\a");
+		Sleep(30);
+		move(T,N);
+	}
+	++N;
+	for (; T > 0; --T)
+	{
+		prints(T);
+		printf("\a");
+		Sleep(30);
+		move(T,N);
+	}
+	++N;
+	goto s1;
+}
